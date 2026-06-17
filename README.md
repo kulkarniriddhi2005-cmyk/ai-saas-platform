@@ -1,69 +1,130 @@
-# QuickAI
+# QuickAI – AI SaaS Platform
 
-Full-stack AI SaaS starter: **React + Vite** (`client/`) and **Node + Express** (`server/`).
+QuickAI is a full-stack AI-powered SaaS application built with React, Vite, Node.js, Express, MongoDB, and Google Gemini AI. The platform provides multiple AI tools including content generation, resume analysis, text summarization, email generation, image generation, background removal, and object removal.
+
+## Features
+
+* Secure User Authentication (JWT)
+* AI Article Generator
+* AI Resume Analyzer
+* AI Text Summarizer
+* AI Title Generator
+* AI Email Generator
+* AI Image Generator
+* Background Remover
+* Object Removal Tool
+* Responsive User Interface
+* MongoDB Database Integration
+
+## Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* CSS
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB Atlas
+
+### AI Services
+
+* Google Gemini API
+* Remove.bg API
+
+## Screenshots
+
+### Application Preview
+
+![Screenshot 1](screenshots/Screenshot%202026-06-17%20130739.png)
+
+![Screenshot 2](screenshots/Screenshot%202026-06-17%20130801.png)
 
 ## Prerequisites
 
-- Node.js 18+
-- MongoDB (local or Atlas) for auth persistence
-- [Google AI Studio](https://aistudio.google.com/) API key for Gemini features
+* Node.js 18+
+* MongoDB (Local or Atlas)
+* Google AI Studio API Key
 
-## Setup
+## Installation
 
 ```bash
 cd ai-saas-project
 npm run install:all
 ```
 
-Copy environment files:
+### Environment Variables
 
-- `server/.env.example` → `server/.env` and set `MONGODB_URI`, `JWT_SECRET`, `CLIENT_URL`. **`GEMINI_API_KEY`** is optional in local dev (article/resume use demo text if unset); required in production for real AI ([get a key](https://aistudio.google.com/apikey)). The server uses model **`gemini-2.5-flash`** by default; override with **`GEMINI_MODEL`** if Google renames endpoints ([model list](https://ai.google.dev/gemini-api/docs/models/gemini)).
-- Optional: `REMOVEBG_API_KEY` for the background remover ([remove.bg API](https://www.remove.bg/api)).
-- `client/.env.example` → `client/.env` (optional; defaults work with Vite proxy).
+Create:
 
-## Run (client + server)
+* `server/.env`
+* `client/.env`
 
-From the **repo root**:
+Configure:
+
+```env
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_gemini_api_key
+CLIENT_URL=http://localhost:5173
+```
+
+Optional:
+
+```env
+REMOVEBG_API_KEY=your_removebg_api_key
+```
+
+## Running the Project
 
 ```bash
 npm run dev
 ```
 
-Or from **`client/`** (starts Vite **and** the API):
+### Local URLs
 
-```bash
-npm run dev
+Frontend:
+
+```text
+http://localhost:5173
 ```
 
-Use `npm run dev:client` in `client/` if you only want Vite and will start the API yourself.
+Backend:
 
-- Client: http://localhost:5173 (Vite may pick 5174 if 5173 is busy)  
-- API: **http://localhost:5001** by default (`PORT` in `server/.env`)
+```text
+http://localhost:5001
+```
 
-Port **5000** is often already used on Windows (another Node app or system service). This project defaults the API to **5001** so Vite’s proxy hits QuickAI, not a random process on 5000.
+## API Endpoints
 
-If login/register shows **404**, ensure `server/.env` exists with `MONGODB_URI` and `JWT_SECRET`, and that the **api** process in the terminal started successfully. If you change `PORT` in `server/.env`, set the same origin in `client/.env` as `VITE_DEV_API_ORIGIN=http://127.0.0.1:YOUR_PORT`.
+| Method | Endpoint              |
+| ------ | --------------------- |
+| POST   | /api/auth/register    |
+| POST   | /api/auth/login       |
+| GET    | /api/auth/me          |
+| POST   | /api/ai/article       |
+| POST   | /api/ai/resume        |
+| POST   | /api/ai/summary       |
+| POST   | /api/ai/titles        |
+| POST   | /api/ai/email         |
+| POST   | /api/ai/image         |
+| POST   | /api/ai/bg-remove     |
+| POST   | /api/ai/remove-object |
 
-## API overview
-
-| Method | Path | Notes |
-|--------|------|--------|
-| POST | `/api/auth/register` | `{ email, password, name? }` |
-| POST | `/api/auth/login` | `{ email, password }` |
-| GET | `/api/auth/me` | Bearer token |
-| POST | `/api/ai/article` | `{ topic, tone? }` |
-| POST | `/api/ai/resume` | `{ text }` |
-| POST | `/api/ai/summary` | `{ text, format?: "bullet" \| "paragraph" }` |
-| POST | `/api/ai/titles` | `{ topic, count?: number }` |
-| POST | `/api/ai/email` | `{ about, tone?: "formal" \| "informal", recipientContext? }` |
-| POST | `/api/ai/image` | `{ prompt, style? }` |
-| POST | `/api/ai/bg-remove` | `multipart/form-data` field `image` |
-| POST | `/api/ai/remove-object` | `multipart`: `image`, `objectDescription` |
-
-## Production build
+## Production Build
 
 ```bash
 npm run build
 ```
 
-Serve `client/dist` behind your host of choice; point `VITE_API_URL` to your API base URL.
+Deploy the frontend and backend separately using services such as Render and connect MongoDB Atlas for database storage.
+
+## Author
+
+Riddhi Kulkarni
