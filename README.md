@@ -1,6 +1,6 @@
 # QuickAI
 
-Full-stack AI SaaS starter: **React + Vite** (`client/`) and **Node + Express** (`server/`).
+Full-stack AI SaaS platform
 
 ## Prerequisites
 
